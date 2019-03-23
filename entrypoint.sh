@@ -6,8 +6,8 @@ if [[ $RUBY_MAJOR == 2 ]]; then
   : ${RAILS_VERSION:='~> 4.2'}
 elif [[ $RUBY_MAJOR == 3 ]]; then
   : ${RAILS_VERSION:='~> 5.0'}
-elif [[ $RUBY_MAJOR == 4 ]]; then
-  : ${RAILS_VERSION:='~> 5.1'}
+elif [ $RUBY_MAJOR -ge 4 ]; then
+  : ${RAILS_VERSION:='~> 5.2'}
 fi
 
 RAILS_VERSION=${RAILS_VERSION%\"}
