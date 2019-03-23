@@ -1,6 +1,6 @@
 gem 'pry-byebug', '~> 3.7.0', group: :development
 gem 'lograge', '~> 0.10.0'
-
+gem 'sqlite3','~> 1.3.6'
 gem 'logstash-event', '~> 1.2.02'
 
 environment 'config.logger = Logger.new(STDOUT)'
