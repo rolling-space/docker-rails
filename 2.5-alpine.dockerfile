@@ -27,25 +27,25 @@ RUN apk add --no-cache --update --upgrade \
  && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" \
  && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc"
 
-RUN export GNUPGHOME="$(mktemp -d)" \
- && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
- && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
- && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
- && chmod +x /usr/local/bin/gosu \
- && gosu nobody true \
- && addgroup -g 1000 app \
- && adduser -u 1000 -D -G app -s /bin/bash app \
- && mkdir -p "$APP" "$GEM_HOME/bin" \
- && { \
-    echo 'install: --no-document'; \
-    echo 'update: --no-document'; \
-  } >> /home/app/.gemrc \
- && chown -R app:app /home/app \
- && find / -type f -iname '*.apk-new' -delete \
- && rm -rf '/var/cache/apk/*' '/tmp/*' '/var/tmp/*'
+# RUN export GNUPGHOME="$(mktemp -d)" \
+#  && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
+#  && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
+#  && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
+#  && chmod +x /usr/local/bin/gosu \
+#  && gosu nobody true \
+#  && addgroup -g 1000 app \
+#  && adduser -u 1000 -D -G app -s /bin/bash app \
+#  && mkdir -p "$APP" "$GEM_HOME/bin" \
+#  && { \
+#     echo 'install: --no-document'; \
+#     echo 'update: --no-document'; \
+#   } >> /home/app/.gemrc \
+#  && chown -R app:app /home/app \
+#  && find / -type f -iname '*.apk-new' -delete \
+#  && rm -rf '/var/cache/apk/*' '/tmp/*' '/var/tmp/*'
 
-WORKDIR $APP
-COPY start.sh template.rb entrypoint.sh install_rails.sh /home/app/
+# WORKDIR $APP
+# COPY start.sh template.rb entrypoint.sh install_rails.sh /home/app/
 
-ENTRYPOINT ["/home/app/entrypoint.sh"]
-CMD ["/home/app/start.sh"]
+# ENTRYPOINT ["/home/app/entrypoint.sh"]
+# CMD ["/home/app/start.sh"]
