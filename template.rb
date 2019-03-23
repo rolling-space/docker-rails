@@ -1,3 +1,5 @@
+comment_lines 'Gemfile', /(gem 'sqlite3')/
+
 gem 'pry-byebug', '~> 3.7.0', group: :development
 gem 'lograge', '~> 0.10.0'
 gem 'sqlite3','~> 1.3.6'
