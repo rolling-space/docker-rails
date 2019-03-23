@@ -2,13 +2,14 @@ FROM ruby:2.5-alpine
 MAINTAINER kristopher.michalski@gmail.com
 
 # Set all environment variables at once
-ENV GOSU_VERSION=1.10 \
+ENV GOSU_VERSION=1.11 \
     GEM_HOME=/home/app/bundle \
     BUNDLE_PATH=/home/app/bundle \
     BUNDLE_APP_CONFIG=/home/app/bundle \
     APP=/home/app/webapp \
     PATH=/home/app/webapp/bin:/home/app/bundle/bin:$PATH \
-    DB_ADAPTER=sqlite3
+    DB_ADAPTER=sqlite3 \
+    LOCAL_USER_ID=$UID
 
 # Install bash, less, nodejs, db clients and gosu
 # Create app directory and set permissions
@@ -21,6 +22,7 @@ RUN apk add --no-cache \
     libxml2-dev libxslt-dev \
     tzdata \
     dpkg gnupg openssl \
+ && echo -n "nameserver 8.8.8.8" >> /etc/resolv.conf \ 
  && dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
  && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" \
  && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc" \
